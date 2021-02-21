@@ -12,4 +12,9 @@ cardsRouter.get('/cards', (req, res) => {
     });
 });
 
+cardsRouter.patch('/cards', (req, res) => {
+  res.status(404);
+  res.send('404', { message: 'Запрашиваемый ресурс не найден' });
+});
+
 module.exports = cardsRouter;

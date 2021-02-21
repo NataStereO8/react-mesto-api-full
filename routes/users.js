@@ -5,14 +5,12 @@ usersRouter.get('/users', (req, res) => {
   fsPromises.readFile('./data/users.json', { encoding: 'utf8' })
     .then((users) => {
       res.send(users);
-      // console.log('test');
     })
     .catch((err) => {
       res.status(500).send({ message: err.message });
     });
 });
 usersRouter.get('/users/:id', (req, res) => {
-  // const { id } = req.params.id;
   fsPromises.readFile('./data/users.json', { encoding: 'utf8' })
     .then((data) => {
       const user = JSON.parse(data).find((item) => item._id === req.params.id);

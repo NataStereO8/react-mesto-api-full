@@ -17,3 +17,8 @@ app.get('/*', (req, res) => {
   res.status(404);
   res.send('404', { message: 'Запрашиваемый ресурс не найден' });
 });
+
+app.post('/*', (req, res) => {
+  res.status(404);
+  res.send('404', { message: 'Запрашиваемый ресурс не найден' });
+});
