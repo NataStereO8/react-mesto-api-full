@@ -13,12 +13,6 @@ app.use(express.static('public'));
 
 app.listen(PORT, () => {});
 
-app.get('/*', (req, res) => {
-  res.status(404);
-  res.send('404', { message: 'Запрашиваемый ресурс не найден' });
-});
-
-app.post('/*', (req, res) => {
-  res.status(404);
-  res.send('404', { message: 'Запрашиваемый ресурс не найден' });
+app.all('/*', (req, res) => {
+  res.status(404).send({ message: 'Запрашиваемый ресурс не найден' });
 });
