@@ -1,27 +1,23 @@
-const fsPromises = require('fs').promises;
 const usersRouter = require('express').Router();
 
-usersRouter.get('/users', (req, res) => {
-  fsPromises.readFile('./data/users.json', { encoding: 'utf8' })
-    .then((users) => {
-      res.send(users);
-    })
-    .catch((err) => {
-      res.status(500).send({ message: err.message });
-    });
-});
-usersRouter.get('/users/:id', (req, res) => {
-  fsPromises.readFile('./data/users.json', { encoding: 'utf8' })
-    .then((data) => {
-      const user = JSON.parse(data).find((item) => item._id === req.params.id);
-      if (!user) {
-        return res.status(404).send({ message: 'Нет пользователя с таким id' });
-      }
-      return res.send(user);
-    })
-    .catch((err) => {
-      res.status(500).send({ message: err.message });
-    });
-});
+const { createUser } = require('../controllers/users');
+
+usersRouter.post('/users', createUser);
+
+const { getUsers } = require('../controllers/users');
+
+usersRouter.get('/users', getUsers);
+
+const { getUser } = require('../controllers/users');
+
+usersRouter.get('/users/:id', getUser);
+
+const { updateUser } = require('../controllers/users');
+
+usersRouter.patch('/users/me', updateUser);
+
+const { updateAvatar } = require('../controllers/users');
+
+usersRouter.patch('/users/me/avatar', updateAvatar);
 
 module.exports = usersRouter;

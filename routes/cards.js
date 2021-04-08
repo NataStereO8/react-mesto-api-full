@@ -1,20 +1,23 @@
-const fsPromises = require('fs').promises;
-
 const cardsRouter = require('express').Router();
 
-cardsRouter.get('/cards', (req, res) => {
-  fsPromises.readFile('./data/cards.json', { encoding: 'utf8' })
-    .then((cards) => {
-      res.send(cards);
-    })
-    .catch((err) => {
-      res.status(500).send({ message: err.message });
-    });
-});
+const { createCard } = require('../controllers/cards');
 
-cardsRouter.patch('/cards', (req, res) => {
-  res.status(404);
-  res.send('404', { message: 'Запрашиваемый ресурс не найден' });
-});
+cardsRouter.post('/cards', createCard);
+
+const { getCards } = require('../controllers/cards');
+
+cardsRouter.get('/cards', getCards);
+
+const { deleteCard } = require('../controllers/cards');
+
+cardsRouter.delete('/cards', deleteCard);
+
+const { likeCard } = require('../controllers/cards');
+
+cardsRouter.put('/cards/:cardId/likes', likeCard);
+
+const { dislikeCard } = require('../controllers/cards');
+
+cardsRouter.delete('/cards/:cardId/likes', dislikeCard);
 
 module.exports = cardsRouter;
