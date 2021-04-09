@@ -17,7 +17,11 @@ module.exports.createCard = (req, res) => {
       res.send({ data: card });
     })
     .catch((err) => {
-      res.status(500).send({ message: err.message });
+      if (err.name === 'ValidationError') {
+        res.status(400).send({ message: 'Переданы некорректные данные' });
+      } else {
+        res.status(500).send({ message: err.message });
+      }
     });
 };
 
@@ -30,6 +34,14 @@ module.exports.deleteCard = (req, res) => {
       return res.send('Nice');
     })
     .catch((err) => {
+      if (err.name === 'CastError') {
+        res.status(400).send({ message: 'Неправильно указан ID' });
+        return;
+      }
+      if (err.message === 'Элемент" по указанному ID не найден.') {
+        res.status(404).send({ message: err.message });
+        return;
+      }
       res.status(500).send({ message: err.message });
     });
 };
@@ -47,6 +59,14 @@ module.exports.likeCard = (req, res) => {
       return res.send(card);
     })
     .catch((err) => {
+      if (err.name === 'CastError') {
+        res.status(400).send({ message: 'Неправильно указан ID' });
+        return;
+      }
+      if (err.message === 'Элемент" по указанному ID не найден.') {
+        res.status(404).send({ message: err.message });
+        return;
+      }
       res.status(500).send({ message: err.message });
     });
 };
@@ -64,6 +84,14 @@ module.exports.dislikeCard = (req, res) => {
       return res.send(card);
     })
     .catch((err) => {
+      if (err.name === 'CastError') {
+        res.status(400).send({ message: 'Неправильно указан ID' });
+        return;
+      }
+      if (err.message === 'Элемент" по указанному ID не найден.') {
+        res.status(404).send({ message: err.message });
+        return;
+      }
       res.status(500).send({ message: err.message });
     });
 };

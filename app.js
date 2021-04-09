@@ -25,8 +25,8 @@ app.use(express.json());
 app.use('/', cardsRouter);
 app.use('/', usersRouter);
 
-app.listen(PORT, () => {});
-
 app.all('/*', (req, res) => {
   res.status(404).send({ message: 'Запрашиваемый ресурс не найден' });
 });
+
+app.listen(PORT, () => {});

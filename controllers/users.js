@@ -6,12 +6,6 @@ module.exports.createUser = (req, res) => {
     .then((user) => {
       res.send({ data: user });
     })
-    .then((validate) => {
-      if (!validate) {
-        return res.status(404).send({ message: 'Введено неправильное значение' });
-      }
-      return res.send();
-    })
     .catch((err) => {
       if (err.name === 'ValidationError') {
         res.status(400).send({ message: 'Переданы некорректные данные' });
@@ -40,6 +34,14 @@ module.exports.getUser = (req, res) => {
       return res.send(user);
     })
     .catch((err) => {
+      if (err.name === 'CastError') {
+        res.status(400).send({ message: 'Неправильно указан ID' });
+        return;
+      }
+      if (err.message === 'Элемент" по указанному ID не найден.') {
+        res.status(404).send({ message: err.message });
+        return;
+      }
       res.status(500).send({ message: err.message });
     });
 };
