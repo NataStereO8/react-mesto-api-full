@@ -1,10 +1,10 @@
-const User = require('../models/user');
-const bcrypt = require('bcryptjs'); // импортируем bcrypt
+const bcrypt = require('bcryptjs');
+const User = require('../models/user'); // импортируем bcrypt
 
 exports.createUser = (req, res) => {
   // хешируем пароль
   bcrypt.hash(req.body.password, 10)
-    .then(hash => User.create({
+    .then((hash) => User.create({
       email: req.body.email,
       password: hash, // записываем хеш в базу
     }))

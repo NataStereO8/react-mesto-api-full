@@ -1,3 +1,4 @@
+// const { celebrate, Joi } = require('celebrate');
 const cardsRouter = require('express').Router();
 
 const { createCard } = require('../controllers/cards');
