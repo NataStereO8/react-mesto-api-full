@@ -1,7 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const { requestLogger, errorLogger } = require('./middlewares/logger');
-
+// const { requestLogger, errorLogger } = require('./middlewares/logger');
 const cardsRouter = require('./routes/cards');
 const usersRouter = require('./routes/users');
 
@@ -26,12 +25,12 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 
-app.use(requestLogger);
+// app.use(requestLogger);
 
 app.use('/', cardsRouter);
 app.use('/', usersRouter);
 
-app.use(errorLogger);
+// app.use(errorLogger);
 
 app.all('/*', (req, res) => {
   res.status(404).send({ message: 'Запрашиваемый ресурс не найден' });
