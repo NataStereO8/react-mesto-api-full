@@ -21,7 +21,7 @@ const app = express();
 require('dotenv').config();
 
 app.options('/*', (req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'SAMEORIGIN');
+  res.header('Access-Control-Allow-Origin', 'http://wabu-labu-dab-dab.nomoredomains.icu');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
   res.header('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS');
 
@@ -29,7 +29,7 @@ app.options('/*', (req, res, next) => {
 });
 
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'SAMEORIGIN');
+  res.header('Access-Control-Allow-Origin', 'http://wabu-labu-dab-dab.nomoredomains.icu');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
   res.header('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS');
 
