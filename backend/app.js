@@ -20,21 +20,21 @@ const app = express();
 
 require('dotenv').config();
 
-// app.options('/*', (req, res, next) => {
-//   res.header('Access-Control-Allow-Origin', 'http://localhost:3001');
-//   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-//   res.header('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS');
+app.options('/*', (req, res, next) => {
+  res.header('Access-Control-Allow-Origin', 'SAMEORIGIN');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  res.header('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS');
 
-//   res.send();
-// });
+  res.send();
+});
 
-// app.use((req, res, next) => {
-//   res.header('Access-Control-Allow-Origin', 'http://localhost:3001');
-//   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-//   res.header('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS');
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', 'SAMEORIGIN');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  res.header('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS');
 
-//   next();
-// });
+  next();
+});
 
 app.use(express.json());
 
