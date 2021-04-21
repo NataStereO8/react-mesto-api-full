@@ -7,7 +7,6 @@ const usersRouter = require('./routes/users');
 const { createUser, login } = require('./controllers/users');
 const auth = require('./middlewares/auth');
 
-
 const { PORT = 3000 } = process.env;
 
 mongoose.connect('mongodb://localhost:27017/mestodb', {
@@ -20,21 +19,21 @@ const app = express();
 
 require('dotenv').config();
 
-app.options('/*', (req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'http://wabu-labu-dab-dab.nomoredomains.icu');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-  res.header('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS');
+// app.options('/*', (req, res, next) => {
+//   res.header('Access-Control-Allow-Origin', 'http://wabu-labu-dab-dab.nomoredomains.icu');
+//   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+//   res.header('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS');
 
-  res.send();
-});
+//   res.send();
+// });
 
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'http://wabu-labu-dab-dab.nomoredomains.icu');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-  res.header('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS');
+// app.use((req, res, next) => {
+//   res.header('Access-Control-Allow-Origin', 'http://wabu-labu-dab-dab.nomoredomains.icu');
+//   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+//   res.header('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS');
 
-  next();
-});
+//   next();
+// });
 
 app.use(express.json());
 
