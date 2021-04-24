@@ -25,6 +25,7 @@ const allowedCors = [
   'https://wabu-labu-dab-dab.nomoredomains.icu',
   'https://api.wabu-labu-dab-dab.nomoredomains.icu',
   'localhost:3000',
+  '130.193.46.121',
 ];
 
 app.use((req, res, next) => {
