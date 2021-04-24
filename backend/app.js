@@ -19,25 +19,45 @@ const app = express();
 
 require('dotenv').config();
 
-// app.options('/*', (req, res, next) => {
-//   res.header('Access-Control-Allow-Origin', 'http://wabu-labu-dab-dab.nomoredomains.icu');
-//   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-//   res.header('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS');
+const allowedCors = [
+  'http://wabu-labu-dab-dab.nomoredomains.icu',
+  'http://api.wabu-labu-dab-dab.nomoredomains.icu',
+  'https://wabu-labu-dab-dab.nomoredomains.icu',
+  'https://api.wabu-labu-dab-dab.nomoredomains.icu',
+  'localhost:3000',
+];
 
-//   res.send();
-// });
+app.use((req, res, next) => {
+  const { origin } = req.headers;
+  if (allowedCors.includes(origin)) {
+    res.header('Access-Control-Allow-Origin', origin);
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+    res.header('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS');
+  }
 
-// app.use((req, res, next) => {
-//   res.header('Access-Control-Allow-Origin', 'http://wabu-labu-dab-dab.nomoredomains.icu');
-//   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-//   res.header('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS');
+  next();
+});
 
-//   next();
-// });
+app.options('/*', (req, res, next) => {
+  const { origin } = req.headers;
+
+  if (allowedCors.includes(origin)) {
+    res.header('Access-Control-Allow-Origin', origin);
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+    res.header('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS');
+    res.send();
+  } else next();
+});
 
 app.use(express.json());
 
 app.use(requestLogger);
+
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
 
 app.post('/signin', celebrate({
   body: Joi.object().keys({
