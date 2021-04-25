@@ -18,19 +18,27 @@ module.exports.login = (req, res, next) => {
 };
 
 module.exports.createUser = (req, res, next) => {
-  const { name, about, avatar, email, password } = req.body;
+  const {
+    name, about, avatar, email, password,
+  } = req.body;
   User.findOne({ email }).then((userFound) => {
     if (userFound) throw new ConflictError('Пользователь с таким e-mail уже существует');
     return bcrypt.hash(password, 10).then((hash) => {
-      User.create({ name, about, avatar, email, password: hash })
-        .then((user) => res.send({ data: user }));
+      User.create({
+        name, about, avatar, email, password: hash,
+      })
+        .then((user) => {
+          const userToSend = user.toObject();
+          delete userToSend.password;
+          res.send({ data: userToSend });
+        });
     });
   }).catch((err) => {
     if (err.name === 'ValidationError') {
       return new BadRequestError(err.message);
     }
     return next(err);
-  });;
+  });
 };
 
 module.exports.getUsers = (req, res, next) => {

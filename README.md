@@ -1,10 +1,10 @@
 # Проект Mesto фронтенд + бэкенд
 
 ## URL   
-https://wabu-labu-dab-dab.nomoredomains.icu/sign-in
+https://wabu-labu-dab-dab.nomoredomains.icu/
 
 ## URL  с API 
-https://api.wabu-labu-dab-dab.nomoredomains.icu/sign-in
+https://api.wabu-labu-dab-dab.nomoredomains.icu/
 
 ## Адрес сервера
 130.193.46.121 
